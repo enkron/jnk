@@ -215,6 +215,14 @@ git reset --hard HEAD~1 #reset all changed to the commit previous HEAD
 git config --global color.ui auto #color git output
 
 git rev-list --count develop #count commits on certain branch
+
+#delete all your commit history but keep the code in its current state
+git checkout --orphan <tmp_branch> 
+git add -A #add all the files
+git commit -am "commit message"
+git branch -D master
+git branch -m master #rename the current branch to master
+git push -f origin master #finally, force update your repository
 ```
 ________________________________________________________
 ```bash
