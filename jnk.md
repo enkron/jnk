@@ -213,6 +213,8 @@ git push <remote_name(always: origin)> --delete <branch_name> #delete branch rem
 git reset --hard HEAD~1 #reset all changed to the commit previous HEAD
 
 git config --global color.ui auto #color git output
+
+git rev-list --count develop #count commits on certain branch
 ```
 ________________________________________________________
 ```bash
