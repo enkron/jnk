@@ -14,10 +14,11 @@ hdfs dfs -ls hdfs://some.namenode.url:8020/      # hdfs url
 ________________________________________________________
 ```bash
 strace -f $(command) 2>${file}
-```
-[//]: # (a great deal can be learned about a system and its system calls by tracing even ordinary  programs)
+# (a great deal can be learned about a system and its system calls by tracing even ordinary  programs)
+
 gdb
-[//]: # (allow you to see what is going  on  ‘‘inside’’  another program)
+# (allow you to see what is going  on  ‘‘inside’’  another program)
+```
 
 ```bash
 ansible -i inventory/prod all -m shell -a 'uname -n; df -Ph |egrep "(8|9)[0-9]%"'
@@ -28,26 +29,27 @@ ________________________________________________________
 tree / -L 1 --inodes #print catalog's tree with inodes and max depth 1
 ```
 ________________________________________________________
-od              - dump files in octal and other formats
-hexdump -C      - display file contents in ascii, decimal, hexadecimal, or octal + Canonical hex+ASCII display.
-dd              - convert and copy a file
-nc              - Concatenate and redirect sockets
+```bash
+od          # dump files in octal and other formats
+hexdump -C  # display file contents in ascii, decimal, hexadecimal, or octal + Canonical hex+ASCII display.
+dd          # convert and copy a file
+nc          # Concatenate and redirect sockets
+```
 
-#### [os_administration]
+#### [os_adm]
 ```bash
 cat ./* |awk -F':' '{print $1}' |sort |uniq > /tmp/groupnames
 for group in /tmp/groupnames; do grep -e "^${group}:" ./ |awk -F':' '{print $NF}'| tr ',' '\n' |sort |uniq > /tmp/${group}
 ```
 
 ```bash
-find . -maxdepth 1 -type f -exec '{}' '+' |tr ' ' \n'
+find . -maxdepth 1 -type f -exec '{}' '+' |tr ' ' '\n'
+# (find only files in current dir and replace ' ' '\n')
 ```
-[//]: # (find only files in current dir and replace ' ' '\n')
-
 ```bash
 find . -name '.?*' -maxdepth 1 -user $(whoami) -exec du -sh {} \; |egrep -i '(^[0-9].?.[K|M])'
+# (find files in current directory starts with . having sizes in Kb and Mb, and print them to stdout)
 ```
-[//]: # (find files in current directory starts with . having sizes in Kb and Mb, and print them to stdout)
 
 ```bash
 #these're similiar commands:
@@ -128,29 +130,35 @@ for i in $(ls / |egrep -v 'sys|proc|mnt|lib'); do sudo find /$i -type f -name *s
 #search in all catalogs except of systems dirs some file with name *semarchy*
 ```
 ________________________________________________________
-strings (1)          - print the strings of printable characters in files
-foremost (1)         - Recover files using their headers, footers, and data structures
-exiftool (1)         - Read and write meta information in files
+```bash
+strings (1)          # print the strings of printable characters in files
+foremost (1)         # Recover files using their headers, footers, and data structures
+exiftool (1)         # Read and write meta information in files
+```
 
 #### [virtualization]
-VBoxManage list vms                             - list existing virtualmachines;
-VBoxManage unregistervm --delete "machine_name" - delete unused machine;
-vagrant up                                      - create new environment along with Vagrantfile;
-vagrant ssh                                     - login to running machine;
-vagrant halt                                    - poweroff running machine;
-vagrant destroy                                 - remove environment;
-vagrant box list                                - lists all the boxes that are installed into Vagrant
+```bash
+VBoxManage list vms                             # list existing virtualmachines;
+VBoxManage unregistervm --delete "machine_name" # delete unused machine;
+vagrant up                                      # create new environment along with Vagrantfile;
+vagrant ssh                                     # login to running machine;
+vagrant halt                                    # poweroff running machine;
+vagrant destroy                                 # remove environment;
+vagrant box list                                # lists all the boxes that are installed into Vagrant
+```
 
 #### [contenirization]
-docker pull          - pull an image or a repository from a registry;
+```bash
+docker pull          # pull an image or a repository from a registry;
 
 docker run --detach --publish 8080:8080 --volume jenkins_home:/var/jenkins_home --name jenkins jenkins/jenkins:lts
 
-docker run           - run a command in a new container;
-docker run --detach  - run container in background and print container id;
-docker run --publish - publish a container's port(s) to the host;
-docker run --volume  - bind mount a volume;
-docker exec          - run a command in a running container;
+docker run           # run a command in a new container;
+docker run --detach  # run container in background and print container id;
+docker run --publish # publish a container's port(s) to the host;
+docker run --volume  # bind mount a volume;
+docker exec          # run a command in a running container;
+```
 ________________________________________________________
 ```bash
 wget -q --auth-no-challenge --user USERNAME --password PASSWORD --output-document - \
@@ -263,8 +271,10 @@ ansible-vault encrypt_string --vault-password-file a_password_file 'foobar' --na
 #encrypt ansible string
 ```
 _________________________________________________________
-mtr    - combines the functionality of the traceroute and ping programs in a
-         single network diagnostic tool.
+```bash
+mtr    # combines the functionality of the traceroute and ping programs in a
+       # single network diagnostic tool.
+```
 
 #### [aws]
 ```bash
@@ -340,18 +350,20 @@ echo $[2#00000010] # converting binary to decimal
 ```
 
 #### [vim]
-:help key-notation
-:help map-special-chars
-:help mapping
-:help map-which-keys
+[//]: # (:help key-notation)
+[//]: # (:help map-special-chars)
+[//]: # (:help mapping)
+[//]: # (:help map-which-keys)
 
 ```bash
 ldapsearch -D "login@domain.com" -W -h host.domain.com -b "DC=domain,DC=com" -s sub "(cn=<some_name>)"
 ```
 [//]: # (search in domain <domain.com> with servers host.domain.com all that below DC=domain,DC=com in Directory Server tree)
 
+```bash
 an -s5 sssd.conf
 man -s5 sssd-ldap
+```
 
 ```bash
 ssh -L 80:intra.example.com:80 gw.example.com
