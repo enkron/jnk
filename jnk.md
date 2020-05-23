@@ -278,7 +278,7 @@ mtr    # combines the functionality of the traceroute and ping programs in a
 
 #### [aws]
 ```bash
-aws --profile rgn-ccdd --region us-west-2 ec2 describe-instance-status \
+aws --profile <profile_name> -ccdd --region us-west-2 ec2 describe-instance-status \
 --filters Name=instance-state-name,Values=running
 # describe aws running instances in specific region
 
