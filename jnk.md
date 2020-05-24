@@ -399,3 +399,42 @@ jar xfv <jarfile> #extract jar artifact
 rpm -qlp ~/mysql-connector-java-8.0.19-1.el7.noarch.rpm #list rpm pkg content
 rpm -ivh mysql-connector-java-8.0.19-1.el7.noarch.rpm #install rpm pkg
 ```
+
+```bash
+gpg --full-generate-key
+gpg --list-secret-keys --keyid-format LONG
+gpg --armor --export <key_id>
+gpg --armor --export <key_id> #export public part of gpg key in string format
+```
+
+```bash
+aws s3api list-object-versions --bucket <bucket_name> --prefix <bucket_path>
+#returns metadata about all of the versions of objects in a bucket
+
+aws --profile <profile_name> --region <aws_region> s3api put-bucket-policy \
+    --bucket <bucket_name> --policy file://policy.json
+
+aws s3api create-bucket --bucket <bucket_name> --region <aws_region> \
+    --create-bucket-configuration LocationConstraint=us-west-2 --acl private
+```
+
+```bash
+ldapsearch -D "<ldapuser>@<domen>.com" -W -h <controller>.<domen>.com \
+    -b "DC=<domen>,DC=com" -s sub "(userPrincipalName=<user_principal>@<domen>.com)"
+```
+
+```bash
+yum --showduplicates list httpd
+yum info
+yum list installed
+
+repoquery --show-duplicates mysql-community-server
+```
+
+```bash
+ansible-playbook <play>.yml --tags 'your_tag' --list-tasks
+#list which tags are applied to tasks, roles, and static imports
+
+ansible-playbook <play>.yml --list-tags
+#display all tags available in specific play
+```
