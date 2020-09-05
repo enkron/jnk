@@ -1,3 +1,5 @@
+![GitHub Logo](/images/maxvel_daemon.png)
+
 #### Table of contents
 
 1.  [conn_strings](#conn_strings)
