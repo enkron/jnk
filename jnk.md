@@ -1,6 +1,15 @@
 #### Table of contents
 
-1. [conn_strings](#conn_strings)
+1.  [conn_strings](#conn_strings)
+2.  [os_adm](#os_adm)
+3.  [virtualization](#virtualization)
+4.  [contenirization](#contenirization)
+5.  [git](#git)
+6.  [aws](#aws)
+7.  [package_management](#package_management)
+8.  [os_audit](#os_audit)
+9.  [vim](#vim)
+10. [not_categorized (tmp)](#not_categorized)
 
 
 #### [conn_strings]
@@ -360,6 +369,7 @@ echo $[2#00000010] # converting binary to decimal
 [//]: # (:help mapping)
 [//]: # (:help map-which-keys)
 
+#### [not_categorized (tmp)]
 ```bash
 ldapsearch -D "login@domain.com" -W -h host.domain.com -b "DC=domain,DC=com" -s sub "(cn=<some_name>)"
 ```
