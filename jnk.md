@@ -1,3 +1,8 @@
+#### Table of contents
+
+1. [conn_strings](#conn_strings)
+
+
 #### [conn_strings]
 ```bash
 !connect jdbc:hive2://hive.server2.url:10000/default;ssl=true;sslTrustStore=/opt/ssl/cacerts.jks;sslTrustStorePassword=changeit;
