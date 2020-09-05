@@ -9,7 +9,7 @@
 7.  [package_management](#package_management)
 8.  [os_audit](#os_audit)
 9.  [vim](#vim)
-10. [not_categorized (tmp)](#not_categorized)
+10. [not_categorized](#not_categorized)
 
 
 #### [conn_strings]
@@ -315,15 +315,6 @@ aws --region eu-central-1 lambda invoke --function-name test_lambda_invoke out \
 aws --profile stage s3api put-object --bucket <bucket_name> -np --key some/bucket/path/
 # put empty object to s3 (folder in this case)
 ```
-_________________________________________________________
-```bash
-systemctl list-unit-files --type=service --all
-# displays the status of all installed services that have init scripts
-# Enabled means it has a symlink in a .wants directory
-# Disabled means it does not
-# Static means the service is missing the [Install] section in its init script
-# Static services are usually dependencies of other services
-```
 
 #### [package_management]
 ```bash
@@ -361,6 +352,13 @@ launchctl #Interfaces with launchd
 
 pmset # manipulate power management settings
 echo $[2#00000010] # converting binary to decimal
+
+systemctl list-unit-files --type=service --all
+# displays the status of all installed services that have init scripts
+# Enabled means it has a symlink in a .wants directory
+# Disabled means it does not
+# Static means the service is missing the [Install] section in its init script
+# Static services are usually dependencies of other services
 ```
 
 #### [vim]
@@ -369,7 +367,7 @@ echo $[2#00000010] # converting binary to decimal
 [//]: # (:help mapping)
 [//]: # (:help map-which-keys)
 
-#### [not_categorized (tmp)]
+#### [not_categorized]
 ```bash
 ldapsearch -D "login@domain.com" -W -h host.domain.com -b "DC=domain,DC=com" -s sub "(cn=<some_name>)"
 ```
