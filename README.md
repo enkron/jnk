@@ -175,6 +175,13 @@ yum info
 yum list installed
 
 repoquery --show-duplicates mysql-community-server
+
+pidof <process_name>
+top -Hbn1 -p <process_id> #run top with batch mod with 1 iteration, and view threads information
+
+ls -l /proc/<process_id>/task #is also shows process' thread
+
+mysqldump –u [UserName] –p[Password] –R [DB_Name] > [DB_Name].sql
 ```
 
 ##### [package_management]
@@ -312,6 +319,15 @@ git commit -am "commit message"
 git branch -D master
 git branch -m master #rename the current branch to master
 git push -f origin master #finally, force update your repository
+
+#squashing commits into one
+git rebase -i <commit_hash> #all commits above this hash up to HEAD will be merged into one
+#in the pop-up editor window will be the commits list in !reverse-order!
+#mark the old-one (at the top) as 'pick' and the rest of all commits as 'squash'
+#save changes, make result final commit
+git push --force #(--force-with-lease? in newer versions) to update upstream with local branch
+#NOTE:  the pushed branch should only mirror your work, not be the authoritative branch,
+#so 'force push' is acceptable.))
 ```
 
 #### [aws]
