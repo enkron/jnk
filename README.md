@@ -1,4 +1,4 @@
-<img align="right" width="100" height="100" src="/images/maxvel_daemon.png">
+<img align="right" width="100" height="100" src="/img/daemon.png">
 
 #### Table of contents
 
