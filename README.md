@@ -68,6 +68,8 @@ lsb_release -d | cat /etc/os-release | hostnamectl #check OS version
 
 cat /proc/loadavg | uptime | w | top #different ways to check load avg
 
+cat /proc/sys/kernel/random/entropy_avail # check the available entropy on a system
+
 /var/lib/sdc-resources
 
 ls -ltr |awk '{ print $9 }' |sed '/^[[:space:]]*$/d' # delete 1st empty line from output
