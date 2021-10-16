@@ -1,25 +1,32 @@
 <img align="right" width="100" height="100" src="/img/daemon.png">
 
-#### Table of contents
+# Table of contents
 
 1. [os_adm](#os_adm)
     - [package_management](#package_management)
     - [conn_strings](#conn_strings)
 2. [virtualization](#virtualization)
-3. [contenirization](#contenirization)
+3. [containerization](#contenirization)
 4. [ci/cd](#ci/cd)
     - [jenkinsci](#jenkinsci)
     - [ansible](#ansible)
 5. [git](#git)
-6. [aws](#aws)
-7. [vim](#vim)
-8. [not_categorized](#not_categorized)
+6. [sec](#sec)
+7. [aws](#aws)
+8. [vim](#vim)
+9. [not_categorized](#not_categorized)
+10. [notes](#notes)
 
 
-#### [os_adm]
+# [os_adm]
 ```bash
 cat ./* |awk -F':' '{print $1}' |sort |uniq > /tmp/groupnames
-for group in /tmp/groupnames; do grep -e "^${group}:" ./ |awk -F':' '{print $NF}'| tr ',' '\n' |sort |uniq > /tmp/${group}
+
+for group in /tmp/groupnames; do \
+	grep -e "^${group}:" ./ |awk -F':' '{print $NF}'| tr ',' '\n' |sort |uniq > /tmp/${group}
+
+# use the `dd` utility to write an image.
+dd if=/path/to/image.iso of=/dev/sdX bs=8M status=progress oflag=direct
 
 find . -maxdepth 1 -type f -exec '{}' '+' |tr ' ' '\n'
 # (find only files in current dir and replace ' ' '\n')
@@ -41,11 +48,21 @@ find /home/ -type f -name '*.yml' |xargs grep -n 400 |\
 grep -v 'gid:\|status_code:\|nrusca-clp\|port_range\|install\|inactive_interval\|avro\|kylo\|86400\|14000'
 # find sertain files and grep them for something
 
+chown/chmod --reference=file1 file2 # copy owner/permissions from file1 to file2
+
+# look into last killed process by OOM
+grep -i 'killed process' /var/log/messages
+dmesg |grep -Ei 'killed process'
+
+journalctl _COMM=sshd # check sshd logs
+
 find /var/lib/jenkins/workspace -type d -mtime +7 -exec rm -rf '{}' \;
 # find and delete directories older than 7 days
 
 find . -maxdepth 1 \( -name ".forward" -o -name ".ssh" \) -print 2>/dev/null
 #find several item in one command
+
+find . ! -name . -prune -print | grep -c / # count files in a current dir
 
 lsb_release -d | cat /etc/os-release | hostnamectl #check OS version
 
@@ -53,7 +70,7 @@ cat /proc/loadavg | uptime | w | top #different ways to check load avg
 
 /var/lib/sdc-resources
 
-ls -ltr| awk '{ print $9 }' |sed '/^[[:space:]]*$/d' # delete 1st empty line from output
+ls -ltr |awk '{ print $9 }' |sed '/^[[:space:]]*$/d' # delete 1st empty line from output
 ls -ltr |sed '1 d' |sed '$ d' |awk '{print $9}' # delete 1st and last lines from output
 
 getfacl file1 | setfacl --set-file=- file2 #copy the ACL of file1 to file2
@@ -63,14 +80,15 @@ netstat -s #Show per-protocol statistics
 netstat -nr #Show routing tables (-n show adresses as numbers)
 
 sudo lsof -PiTCP -sTCP:LISTEN #show listen tcp ports  
-netstat -ap tcp |egrep -i "listen" #show listen tcp ports
+netstat -ap tcp |grep -Ei "listen" #show listen tcp ports
 
-du -sh * |egrep "(^[0-9][^.].M|^[0-9].?.G)"
+du -sh * |grep -E "(^[0-9][^.].M|^[0-9].?.G)"
 
 grep -iw -E "(ERROR)" `ls -lt |grep -i "Mar 11" |awk -F ' ' '{ print $9 }'` --color
 
 pgrep -afil 'some_process_discription' # find a procces in process table
-for i in `ls / |egrep -v 'sys|proc|mnt|lib'`; do sudo find /$i -type f -name *semarchy*; done |grep war
+
+for i in `ls / |grep -Ev 'sys|proc|mnt|lib'`; do sudo find /$i -type f -name *semarchy*; done |grep war
 #search in all catalogs except of systems dirs some file with name *semarchy*
 
 strings (1)          # print the strings of printable characters in files
@@ -148,6 +166,7 @@ tcpdump -D
 tcpdump -r beeline.dump
 tcpdump -vv port 10000 -tttt -w beeline.pcap
 tcpdump port 10000 -tttt -vv -XX -w beeline.pcap # -XX for ACSII and HEX format output
+tcpdump -i 1 -vv -nn -c 10 'host <host1> and <host2>' # capture traffic between 2 host
 
 kinit username@DOMAIN.COM -k -t user.keytab
 
@@ -161,11 +180,6 @@ jar xfv <jarfile> #extract jar artifact
 
 rpm -qlp ~/mysql-connector-java-8.0.19-1.el7.noarch.rpm #list rpm pkg content
 rpm -ivh mysql-connector-java-8.0.19-1.el7.noarch.rpm #install rpm pkg
-
-gpg --full-generate-key
-gpg --list-secret-keys --keyid-format LONG
-gpg --armor --export <key_id>
-gpg --armor --export <key_id> #export public part of gpg key in string format
 
 ldapsearch -D "<ldapuser>@<domen>.com" -W -h <controller>.<domen>.com \
     -b "DC=<domen>,DC=com" -s sub "(userPrincipalName=<user_principal>@<domen>.com)"
@@ -184,7 +198,7 @@ ls -l /proc/<process_id>/task #is also shows process' thread
 mysqldump –u [UserName] –p[Password] –R [DB_Name] > [DB_Name].sql
 ```
 
-##### [package_management]
+## [package_management]
 ```bash
 repoquery --requires --resolve <pkg> # check pkg dependencies
 rpm --install --test <pkg> # dont install just check pkg for deps conflicts
@@ -197,7 +211,7 @@ yum list available
 yum deplist --showduplicates
 ```
 
-##### [conn_strings]
+## [conn_strings]
 ```bash
 !connect jdbc:hive2://hive.server2.url:10000/default;ssl=true;sslTrustStore=/opt/ssl/cacerts.jks;sslTrustStorePassword=changeit;
 impala-shell -i impalad.server.net -l  --auth_creds_ok_in_clear --ssl -u <username>
@@ -209,7 +223,7 @@ hdfs dfs -ls swebhdfs://some.namenode.url:14000/ # webhdfs url
 hdfs dfs -ls hdfs://some.namenode.url:8020/      # hdfs url
 ```
 
-#### [virtualization]
+# [virtualization]
 ```bash
 VBoxManage list vms                             # list existing virtualmachines;
 VBoxManage unregistervm --delete "machine_name" # delete unused machine;
@@ -220,7 +234,7 @@ vagrant destroy                                 # remove environment;
 vagrant box list                                # lists all the boxes that are installed into Vagrant
 ```
 
-#### [contenirization]
+# [containerization]
 ```bash
 docker pull          # pull an image or a repository from a registry;
 
@@ -231,9 +245,17 @@ docker run --detach  # run container in background and print container id;
 docker run --publish # publish a container's port(s) to the host;
 docker run --volume  # bind mount a volume;
 docker exec          # run a command in a running container;
+
+docker images -f dangling=true -q # check unused docker images
+# therefore we can pipe above command into a subshell to cleanup dangling images
+docker rmi $(docker images -f dangling=true -q)
+
+# almost same thing with the containers
+docker ps -aq # shows all container IDs
+docker rm $(docker -aq) # removes all containers (it has to be stopped first)
 ```
-#### [ci/cd]
-##### [jenkinsci]
+# [ci/cd]
+## [jenkinsci]
 ```bash
 wget -q --auth-no-challenge --user USERNAME --password PASSWORD --output-document - \
 'JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,":",//crumb)'
@@ -246,7 +268,7 @@ curl -X POST \
 # trigger simple Jenkins job from cli;
 ```
 
-##### [ansible]
+## [ansible]
 ```bash
 ansible -m debug -a 'var=hostvars[inventory_hostname]' <host_or_group>
 # show ansible playbook variables for sertain host group
@@ -267,7 +289,7 @@ ansible-vault encrypt_string --vault-password-file a_password_file 'foobar' --na
 #encrypt ansible string
 ```
 
-#### [git]
+# [git]
 ```bash
 git log                      # show commits
 git log --graph --decorate --pretty=oneline --abbrev-commit #more pretty log
@@ -328,9 +350,25 @@ git rebase -i <commit_hash> #all commits above this hash up to HEAD will be merg
 git push --force #(--force-with-lease? in newer versions) to update upstream with local branch
 #NOTE:  the pushed branch should only mirror your work, not be the authoritative branch,
 #so 'force push' is acceptable.))
+
+git checkout <some_branch_name> path/to/a/needed/file # merge a particular file into a working branch
+
+git remote update origin --prune # update the local list of remote branches
 ```
 
-#### [aws]
+# [sec]
+```bash
+# PGP - Pretty Good Privacy (Standart)
+gpg --decrypt --pinentry-mode=loopback
+# return PIN entry to the caller
+# (makes possible to entry a PIN inside a shell instead of call annoying window)
+
+gpg --full-generate-key
+gpg --list-secret-keys --keyid-format LONG
+gpg --armor --export <key_id> # export public part of gpg key in string format
+```
+
+# [aws]
 ```bash
 aws --profile <profile_name> -ccdd --region us-west-2 ec2 describe-instance-status \
 --filters Name=instance-state-name,Values=running
@@ -365,7 +403,7 @@ aws s3api create-bucket --bucket <bucket_name> --region <aws_region> \
     --create-bucket-configuration LocationConstraint=us-west-2 --acl private
 ```
 
-#### [vim]
+# [vim]
 ```bash
 # (:help key-notation)
 # (:help map-special-chars)
@@ -373,7 +411,7 @@ aws s3api create-bucket --bucket <bucket_name> --region <aws_region> \
 # (:help map-which-keys)
 ```
 
-#### [not_categorized]
+# [not_categorized]
 ```bash
 # Managing python virtualenv
 python3 -m venv <env_name> #create virtual env dir
@@ -387,3 +425,24 @@ deactivate #deactivate current virtual env
 conda create --prefix=test_env python=3.*
 conda create --name=test_env python=3.*
 ```
+
+# [notes]
+## Closures
+We want to define code in one place in our program,
+but only execute that code where we actually need the result.
+This is a use case for closures
+
+## Patterns
+Using primitive values when a complex type would be more appropriate is
+an anti-pattern known as primitive obsession.
+
+## Docker
+### Docker volumes:
+one of the most common use cases for this is to share a directory that
+holds your application code. You modify the application code on your host
+machine, and those changes are detected by the application server running inside the Docker container.
+
+### RUN and ENTRYPOINT are two different ways to execute a script.
+RUN means it creates an intermediate container, runs the script and freeze the new state of that container in a new intermediate image. The script won't be run after that: your final image is supposed to reflect the result of that script.
+
+ENTRYPOINT means your image (which has not executed the script yet) will create a container, and runs that script
