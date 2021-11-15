@@ -49,13 +49,5 @@ recipient with a `-r/--recipient` flag:
 gpg -r <GPG_KEY_ID> -e <some_file_to_encrypt>
 ```
 
-## File decryption
-return PIN entry to the caller
-(makes possible to entry a PIN inside a shell instead of call annoying window)
-
-```bash
-gpg --decrypt --pinentry-mode=loopback
-```
-
 ## Notes
 PGP - Pretty Good Privacy (Standart)
