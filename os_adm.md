@@ -209,4 +209,11 @@ beeline -u "jdbc:hive2://hive.server2.url:10000/default;ssl=true;sslTrustStore=/
 
 hdfs dfs -ls swebhdfs://some.namenode.url:14000/ # webhdfs url
 hdfs dfs -ls hdfs://some.namenode.url:8020/      # hdfs url
+
+# NordVPN CLI - login command
+# if MFA is enabled
+# `nordvpn login` - will generate a link which could be pasted to a browser window, in browser's login page copy `login` link
+# and provide token part to the `nordvpn login --callback` command
+nordvpn login
+nordvpn login --callback nordvpn://login?action=login&exchange_token=<TOKEN_INFO_%3D%3D&status=done>
 ```
