@@ -30,8 +30,10 @@ the result of that script.
 create a container, and runs that script
 
 ### Containers
-In general containers are encapsulations of an application's runtime
-environment.
+- in general containers are encapsulations of an application's runtime
+  environment,
+- we can represent containers in programming terms: if an image is a
+  class, then a container is an instance of a class - a runtime object.
 
 ## Bash
 ### Strict mode
