@@ -34,17 +34,3 @@ create a container, and runs that script
   environment,
 - we can represent containers in programming terms: if an image is a
   class, then a container is an instance of a class - a runtime object.
-
-## Bash
-### Strict mode
-```bash
-#!/bin/bash
-
-set -eu -o pipefail -o posix
-
-function main() {
-    echo hello
-}
-
-main "${@}"
-```
