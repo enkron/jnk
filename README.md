@@ -4,7 +4,7 @@
 
 1. [os_adm](/os_adm.md)
 2. [virtualization](/virtualization.md)
-3. [containerization](/contenirization.md)
+3. [containerization](/containerization.md)
 4. [ci/cd](/cicd.md)
 5. [git](/git.md)
 6. [sec](/sec.md)
