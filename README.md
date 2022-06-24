@@ -12,3 +12,4 @@
 8. [vim](/vim.md)
 9. [not_categorized](/not_categorized.md)
 10. [notes](/notes.md)
+11. [shell](/shell.md)
