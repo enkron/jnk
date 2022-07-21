@@ -25,7 +25,7 @@ sudo pacman -Ss source-highlight
 ```
 and consequently installed:
 ```bash
-sudo pacman -S source-highlight 
+sudo pacman -S source-highlight
 ```
 Next, check that the package installed correctly and find a path to the
 `src-hilite-lesspipe.sh` script (here's what's needed for `less`
