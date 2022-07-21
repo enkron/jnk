@@ -63,4 +63,11 @@ git push --force #(--force-with-lease? in newer versions) to update upstream wit
 git checkout <some_branch_name> path/to/a/needed/file # merge a particular file into a working branch
 
 git remote update origin --prune # update the local list of remote branches
+
+# displays references available in a remote repository along with the
+# associated commit IDs.
+# The command is useful when one want to clone a specific branch only,
+(`git clone -b <BRANCH> -- <REPO_URL> <LOCAL_DIR>`)
+# but don't know it's exact name
+git ls-remote git@github.com:<PROJECT>/<REPO>.git
 ```
