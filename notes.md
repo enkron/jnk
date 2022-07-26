@@ -8,6 +8,10 @@ closures
 ### Encapsulation
 encapsulation -> information hiding
 
+### Idiomatic code
+The code which sticks to certain rules and conventions which designers
+of a language had in mind
+
 ## Patterns
 Using primitive values when a complex type would be more appropriate is
 an anti-pattern known as primitive obsession.
