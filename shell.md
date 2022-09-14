@@ -43,18 +43,23 @@ export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESS=" -R "
 ```
 
-### List bash's options for the current shell
-It's sometimes useful to check bash's options which are setup for the
-current shell. For instance, we can turn off bash history recording with
-the following command:
+### Switch off bash history recording
+It's sometimes useful to turn off current shell's history recording
+while exposing secret stuff into the shell. This can be accomplished
+within following command:
 
 ```bash
-set +o history # set +H works either
+set +o history # turn off history recording
 # Using + rather than - causes these options to be turned  off.
+# ...
+# Do secret stuff
+# ...
+set -o history # turn on history recording
 ```
 
-After that we can check shell options with the below command:
+### List bash's options for the current shell
+Below command prints `set` command options.
 
 ```bash
-printf %s\\n "$-"
+echo $-
 ```
