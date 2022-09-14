@@ -42,3 +42,19 @@ And finally add below environment variables into `bashrc` file
 export LESSOPEN="| /usr/bin/src-hilite-lesspipe.sh %s"
 export LESS=" -R "
 ```
+
+### List bash's options for the current shell
+It's sometimes useful to check bash's options which are setup for the
+current shell. For instance, we can turn off bash history recording with
+the following command:
+
+```bash
+set +o history # set +H works either
+# Using + rather than - causes these options to be turned  off.
+```
+
+After that we can check shell options with the below command:
+
+```bash
+printf %s\\n "$-"
+```
