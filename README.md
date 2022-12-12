@@ -1,6 +1,8 @@
+<img align="right" width="100" height="100" src="/img/daemon.png">
+
 <details>
 
-<summary><img align="right" width="100" height="100" src="/img/daemon.png"></summary>
+<summary>Table of content</summary>
 
 1. [administration](/admin/general.md)
 2. [virtualization](/virtualization.md)
