@@ -5,6 +5,7 @@
 <summary>Table of content</summary>
 
 1. [administration](/admin/general.md)
+    * [networking](/admin/networking.md)
 2. [virtualization](/virtualization.md)
 3. [containerization](/containerization.md)
 4. [ci/cd](/cicd.md)
