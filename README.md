@@ -2,7 +2,7 @@
 
 # Table of contents
 
-1. [os_adm](/os_adm.md)
+1. [administration](/admin/general.md)
 2. [virtualization](/virtualization.md)
 3. [containerization](/containerization.md)
 4. [ci/cd](/cicd.md)
