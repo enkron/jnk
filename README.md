@@ -1,6 +1,6 @@
-<img align="right" width="100" height="100" src="/img/daemon.png">
+<details>
 
-# Table of contents
+<summary><img align="right" width="100" height="100" src="/img/daemon.png"></summary>
 
 1. [administration](/admin/general.md)
 2. [virtualization](/virtualization.md)
@@ -13,3 +13,5 @@
 9. [not_categorized](/not_categorized.md)
 10. [notes](/notes.md)
 11. [shell](/shell.md)
+
+</details>
