@@ -186,6 +186,24 @@ ls -l /proc/<process_id>/task #is also shows process' thread
 mysqldump –u [UserName] –p[Password] –R [DB_Name] > [DB_Name].sql
 ```
 
+## openssl cli tool
+
+### generate a self-signed certificate oneliner
+
+```bash
+# if `out` & `keyout` options are set to the same name, certificate's
+# key and certificate itself are stored in the same file
+openssl req \
+    -x509 \
+    -newkey rsa:4096 \
+    -out <cert_name>.pem \
+    -keyout <cert_name>.pem \
+    -sha256 \
+    -days 365 \
+    -nodes \
+    -subj '/<hostname>.<domain>'
+```
+
 # [package_management]
 ```bash
 repoquery --requires --resolve <pkg> # check pkg dependencies
